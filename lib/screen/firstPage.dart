@@ -2,12 +2,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 import 'package:newsapp/provider/searchNewsProvider.dart';
-
+import 'package:newsapp/screen/detailScreen.dart';
 import 'package:newsapp/tabbar%20widget.dart';
 
+import '../Drawer.dart';
 class FirstPage extends StatelessWidget {
-
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +23,11 @@ class FirstPage extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        drawer: DrawerPage(),
         resizeToAvoidBottomInset:false,
 
         appBar: AppBar(
-          toolbarHeight: 10,
+          toolbarHeight: 20,
 
 
           bottom: TabBar(
@@ -39,9 +41,11 @@ class FirstPage extends StatelessWidget {
                   text: 'Gaming',
                 ),
               ]),
+
         )
         ,
         body: Column(
+
           children: [
             Container(
               height: 260,
@@ -105,39 +109,49 @@ class FirstPage extends StatelessWidget {
                                     scrollDirection: Axis.vertical,
                                     itemCount: newsData.length,
                                     itemBuilder: (context, index) {
-                                      return Padding(
-                                        padding: const EdgeInsets.only(left: 10, right: 10),
-                                        child: Container(
-                                          width: double.infinity,
-                                          height: 200,
-                                          child: Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              ClipRRect(
-                                                  borderRadius: BorderRadius.circular(10),
-                                                  child: CachedNetworkImage(
-                                                    height: 150,
-                                                    width: 120,
-                                                    errorWidget:(context,url,error) {
-                                                      return Image.asset('assets/images/newslogo.png');
+                                      return InkWell(
+                                        splashColor: Colors.deepPurpleAccent,
 
-                                                    },
-                                                    imageUrl: newsData[index].media ,fit: BoxFit.cover,)),
-                                              SizedBox(width:2,),
-                                              Expanded(
+                                        onTap: (){
 
-                                                child: Column(
-                                                  children: [
-                                                    Text(newsData[index].title),
-                                                    SizedBox(width: 2,),
-                                                    Text(newsData[index].published_date),
-                                                  ],
-                                                ),
-                                              )
 
-                                            ],
+
+                                          Get.to(DetailScreen(newsData[index].link),transition: Transition.leftToRight,);
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(left: 10, right: 10),
+                                          child: Container(
+                                            width: double.infinity,
+                                            height: 200,
+                                            child: Row(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                ClipRRect(
+                                                    borderRadius: BorderRadius.circular(10),
+                                                    child: CachedNetworkImage(
+                                                      height: 150,
+                                                      width: 120,
+                                                      errorWidget:(context,url,error) {
+                                                        return Image.asset('assets/images/newslogo.png');
+
+                                                      },
+                                                      imageUrl: newsData[index].media ,fit: BoxFit.cover,)),
+                                                SizedBox(width:2,),
+                                                Expanded(
+
+                                                  child: Column(
+                                                    children: [
+                                                      Text(newsData[index].title),
+                                                      SizedBox(width: 2,),
+                                                      Text(newsData[index].published_date),
+                                                    ],
+                                                  ),
+                                                )
+
+                                              ],
+                                            ),
+
                                           ),
-
                                         ),
                                       );
                                     }

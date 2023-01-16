@@ -31,6 +31,7 @@ class NewsServices{
       }
       else{
         final data =(response.data['articles']as List).map((news)=>News.fromJson(news)).toList();
+
         return data;
 
       }

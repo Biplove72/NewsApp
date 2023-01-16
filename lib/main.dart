@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:newsapp/screen/firstPage.dart';
+import 'package:get/get.dart';
+//import 'package:newsapp/screen/firstPage.dart';
+import 'package:newsapp/splashScreen.dart';
 
 void main(){
 
@@ -13,8 +15,8 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home:FirstPage(),
+    return GetMaterialApp(
+      home:SplashScreen(),
       debugShowCheckedModeBanner: false,
     );
 
